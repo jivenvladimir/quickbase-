@@ -7,8 +7,8 @@ const attendanceRoutes = require('./routes/attendanceRoutes');
 const employeeRoutes = require('./routes/employeeRoutes');
 
 app.use(express.json()); // Middleware to parse JSON
-app.use('/api/attendance', attendanceRoutes); // Attendance routes
-app.use('/api/employees', employeeRoutes); // Employee routes
+app.use('/api/v1/attendance', attendanceRoutes); // Attendance routes
+app.use('/api/v1/employees', employeeRoutes); // Employee routes
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

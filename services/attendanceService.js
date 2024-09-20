@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const quickbaseApiUrl = 'https://api.quickbase.com/v1/records/query';  // Correct endpoint for querying records
+const quickbaseApiUrl = 'https://api.quickbase.com/v1/records/query';
 const headers = {
     'QB-Realm-Hostname': `${process.env.QUICKBASE_REALM}.quickbase.com`,
     'Authorization': `QB-USER-TOKEN ${process.env.QUICKBASE_USER_TOKEN}`,
@@ -14,8 +14,8 @@ exports.clockIn = async (userId) => {
             to: process.env.QUICKBASE_ATTENDANCE_TABLE_ID,
             data: [
                 {
-                    "6": { "value": userId },  // Assuming 6 is 'Related Employee'
-                    "7": { "value": new Date().toISOString() }  // Assuming 7 is 'Clock In Time'
+                    "6": { "value": userId },
+                    "7": { "value": new Date().toISOString() }
                 }
             ]
         };
@@ -34,8 +34,8 @@ exports.clockOut = async (userId) => {
             to: process.env.QUICKBASE_ATTENDANCE_TABLE_ID,
             data: [
                 {
-                    "6": { "value": userId },  // Assuming 6 is 'Related Employee'
-                    "8": { "value": new Date().toISOString() }  // Assuming 7 is 'Clock In Time'
+                    "6": { "value": userId }, 
+                    "8": { "value": new Date().toISOString() }
                 }
             ]
         };
@@ -52,8 +52,8 @@ exports.getAttendance = async (userId) => {
     try {
         const data = {
             from: process.env.QUICKBASE_ATTENDANCE_TABLE_ID,
-            where: `{'6'.EX.${userId}}`,  // 6 is 'Related Employee'
-            select: [6, 7, 8, 9, 10, 11, 12]  // Selecting the necessary fields
+            where: `{'6'.EX.${userId}}`,
+            select: [6, 7, 8, 9, 10, 11, 12]
         };
         const response = await axios.post(quickbaseApiUrl, data, { headers });
         return response.data;

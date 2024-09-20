@@ -1,7 +1,7 @@
 const axios = require('axios');
-const config = require('../config/quickbaseConfig'); // Ensure this path is correct
+const config = require('../config/quickbaseConfig'); 
 
-const quickbaseApiUrl = 'https://api.quickbase.com/v1/records/query'; // Correct endpoint for querying records
+const quickbaseApiUrl = 'https://api.quickbase.com/v1/records/query'; 
 const headers = {
     'QB-Realm-Hostname': `${config.realm}.quickbase.com`,
     'Authorization': `QB-USER-TOKEN ${config.userToken}`,
@@ -11,11 +11,11 @@ const headers = {
 // Function to get employee records
 exports.getEmployees = async () => {
     try {
-        console.log('Employee Table ID:', process.env.QUICKBASE_ATTENDANCE_TABLE_ID); // Accessing from config
+        console.log('Employee Table ID:', process.env.QUICKBASE_ATTENDANCE_TABLE_ID); 
 
         const data = {
-            from: config.employeeTableId, // Correctly accessing employee table ID
-            select: [3,6, 7, 8] // Example field IDs; replace with actual field IDs
+            from: config.employeeTableId, 
+            select: [3,6, 7, 8] 
         };
 
         const response = await axios.post(quickbaseApiUrl, data, { headers });
@@ -30,8 +30,8 @@ exports.getEmployeeByUid = async (uid) => {
     try {
         const data = {
             from: process.env.QUICKBASE_EMPLOYEE_TABLE_ID,
-            where: `{ '3'.EX.${uid} }`, // Assuming 'uid' is the field name for UID
-            select: [6, 7, 8] // Adjust the field IDs as needed
+            where: `{ '3'.EX.${uid} }`,
+            select: [6, 7, 8]
         };
         const response = await axios.post(quickbaseApiUrl, data, { headers });
         return response.data;
