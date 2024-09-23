@@ -5,10 +5,14 @@ require('dotenv').config();
 const app = express();
 const attendanceRoutes = require('./routes/attendanceRoutes');
 const employeeRoutes = require('./routes/employeeRoutes');
+const supportRoutes = require('./routes/supportRoutes');
+
 
 app.use(express.json()); // Middleware to parse JSON
 app.use('/api/v1/attendance', attendanceRoutes); // Attendance routes
 app.use('/api/v1/employees', employeeRoutes); // Employee routes
+app.use('/api/v1/support', supportRoutes); // Employee routes
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
